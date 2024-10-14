@@ -1,54 +1,60 @@
+//need to import runApp to use it
+//first make sure flutter is imported in pubsec.yaml to be able to use this
 import 'package:flutter/material.dart';
+// all statemented must end with ;
 
+//void = return type
+//main = function name
+//must be main
+//main function is special function- it is main entry point of dart app
+//will be executed automatically by dart when app is opened on a device
 void main() {
-  runApp(const MyApp());
+  //function body is inside of {}
+
+//runApp() is function beign called
+//provided by flutter and gets the app running
+//cannot run alone, it must be wrapped in other functions
+
+  //need 2 core widgets to get UI working: MaterialApp and home:
+  runApp(MaterialApp(
+    //sets up design for app page
+    home: Scaffold(
+
+      //COLOR AND COLORS
+      //Colors lets you access predefined colors
+      // backgroundColor: Colors.deepPurple,
+      //Color lets you set RGB values for the color
+      // backgroundColor: Color.fromARGB(255,47,5,120),
+
+      //if you want a gradient....
+
+      body: GradientContainer(),
+     ), //Scaffold
+    ), //MaterialApp
+  );
 }
 
-// With Flutter, you create user interfaces by combining "widgets"
-// You'll learn all about them (and much more) throughout this course!
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
 
-  // Every custom widget must have a build() method
-  // It tells Flutter, which widgets make up your custom widget
-  // Again: You'll learn all about that throughout the course!
-  @override
-  Widget build(BuildContext context) {
-    // Below, a bunch of built-in widgets are used (provided by Flutter)
-    // They will be explained in the next sections
-    // In this course, you will, of course, not just use them a lot but
-    // also learn about many other widgets!
-    return MaterialApp(
-      title: 'Flutter First App',
-      theme: ThemeData(useMaterial3: true),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: Container(
-          width: double.infinity,
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: const [
-              Text(
-                'Flutter - The Complete Guide',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Learn Flutter step-by-step, from the ground up.',
-                textAlign: TextAlign.center,
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+class GradientContainer extends StatelessWidget {
+@override
+	Widget build(context) {
+    return Container (
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.deepPurple, Colors.blue],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          ), //LinearGradient
+        ), // BoxDecoration
+      // says where to put the code in the scaffolding
+        child: Center(
+        //says what will show
+          child: Text('Hello World!', style: TextStyle(
+            color: Colors.white,
+            fontSize: 28.0,
+          ) )//TextStyle //Text
+         ), //Center
+       ); //Container
+	}
 }
+
