@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:first_app/styled_text.dart';
 
 class GradientContainer extends StatelessWidget {
 
@@ -18,11 +19,13 @@ class GradientContainer extends StatelessWidget {
         ), // BoxDecoration
       // says where to put the code in the scaffolding
         child: Center(
+            child: StyledText()
         //says what will show
-          child: Text('Hello World!', style: TextStyle(
-            color: Colors.white,
-            fontSize: 28.0,
-          ) )//TextStyle //Text
+        //this is what it look slike if you have text in the Widget
+        //   child: Text('Hello World!', style: TextStyle(
+        //     color: Colors.white,
+        //     fontSize: 28.0,
+        //   ) )//TextStyle //Text
          ), //Center
        ); //Container
 	}
