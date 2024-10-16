@@ -1,36 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:first_app/styled_text.dart';
+import 'package:first_app/dice_roller.dart';
 
-class GradientContainer extends StatelessWidget {
+class GradientContainer extends StatefulWidget {
+  final List<Color> colors;
 
-final startAlignment = Alignment.topLeft;
-final endAlignment = Alignment.bottomRight;
+  // Constructor with key forwarding
+  const GradientContainer({super.key, required this.colors});
 
-  const GradientContainer({super.key});
-    //do this to forward key argument GradientContainer({key}): super(key:key);
-    //can accept named arguments? a, b could be arguments in {} ex. GradientContainer() {a,b}
-  
-    @override
-	Widget build(BuildContext context) {
-    return Container (
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.deepPurple, Colors.blue],
-          begin: startAlignment,
-          end: endAlignment,
-          ), //LinearGradient
-        ), // BoxDecoration
-      // says where to put the code in the scaffolding
-        child: Center(
-            child: StyledText("hello world..")
-        //says what will show
-        //this is what it look slike if you have text in the Widget
-        //   child: Text('Hello World!', style: TextStyle(
-        //     color: Colors.white,
-        //     fontSize: 28.0,
-        //   ) )//TextStyle //Text
-         ), //Center
-       ); //Container
-	}
+  @override
+  State<GradientContainer> createState() => _GradientContainerState();
 }
 
+class _GradientContainerState extends State<GradientContainer> {
+  final startAlignment = Alignment.topLeft;
+  final endAlignment = Alignment.bottomRight;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: widget.colors,
+          begin: startAlignment,
+          end: endAlignment,
+        ),
+      ),
+      child: Center(
+        child: DiceRoller(),
+      ),
+    );
+  }
+}
