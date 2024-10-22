@@ -1,48 +1,75 @@
 import 'package:flutter/material.dart';
 import '../util/todo_tile.dart';
+import '../util/dialog_box.dart';
 
 class HomePage extends StatefulWidget {
-    const HomePage({super.key});
+  const HomePage({super.key});
 
-    @override
-    State<HomePage> createState() => _HomePageState();
+  @override
+  State<HomePage> createState() => _HomePageState();
 }
 
 class _HomePageState extends State<HomePage> {
+  //text controller
+  final TextEditingController _controller = TextEditingController();
 
-    //list of to tasks
+  //list of to do tasks
+  List toDoList = [
+    ["Make Tutorial", false],
+    ["Exercise", false],
+  ];
 
-    List toDoList = [
-        ["Make Tutorial", false],
-        ["Exercise", false],
-    ];
+  //checkbox was tapped
+  void checkBoxChanged(bool? value, int index) {
+    setState(() {
+      toDoList[index][1] = !toDoList[index][1];
+    });
+  }
 
-    //checkbox was tapped
+  //save new task
+  void saveNewTask() {
+    setState(() {
+      toDoList.add([_controller.text, false]);
+    });
+    Navigator.of(context).pop();
+  }
 
-    void checkBoxChanged(bool? value, int index) {
-        setState((){
-            toDoList[index][1] = !toDoList[index][1];
-        });
-    }
-
-    @override
-    Widget build (BuildContext) {
-        return Scaffold(
-            backgroundColor: Colors.yellow[200],
-            appBar: AppBar(
-                title: Text('To Do'),
-                elevation: 0,
-            ), //AppBar
-            body: ListView.builder(
-                itemCount:toDoList.length,
-                itemBuilder: (context, index) {
-                    return ToDoTile(
-                        taskName: toDoList[index][0],
-                        taskCompleted: toDoList[index][1],
-                        onChanged: (value) => checkBoxChanged(value, index),
-                    ); // ToDoTile
-                }
-            ),//ListView.builder
+  // create a new task
+  void createNewTask() {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return DialogBox(
+          controller: _controller,
+          onSave: saveNewTask,
+          onCancel: () => Navigator.of(context).pop(),
         );
-    }
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.yellow[200],
+      appBar: AppBar(
+        title: const Text('To Do'),
+        elevation: 0,
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: createNewTask,
+        child: const Icon(Icons.add),
+      ),
+      body: ListView.builder(
+        itemCount: toDoList.length,
+        itemBuilder: (context, index) {
+          return ToDoTile(
+            taskName: toDoList[index][0],
+            taskCompleted: toDoList[index][1],
+            onChanged: (value) => checkBoxChanged(value, index),
+          );
+        },
+      ),
+    );
+  }
 }
