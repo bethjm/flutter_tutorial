@@ -14,7 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   //reference hive box
   final _myBox = Hive.box('mybox');
-  ToDoDatabase db = ToDoDatabase();
+  ToDoDataBase db = ToDoDataBase();
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _HomePageState extends State<HomePage> {
       _controller.clear();
     });
     Navigator.of(context).pop();
-    db.updateDatabase();
+    db.updateDataBase();
   }
 
   // create a new task
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
     setState((){
       db.toDoList.removeAt(index);
     });
-    db.updateDatabase();
+    db.updateDataBase();
   }
 
 
